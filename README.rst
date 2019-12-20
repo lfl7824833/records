@@ -1,3 +1,30 @@
+
+16、records：Kenneth Reitz 大神的for Humans™系列，Records 是一个支持大多数主流关系数据库的原生 SQL 查询第三方库。API 友好，使用简单、支持命令行模式、功能多样。与此同时该库只有 500 行代码，可以当作入门阅读源码的项目，同时学习大神的编程技巧与习惯，示例代码如下：import records
+
+db = records.Database('postgres://...')  # 连接数据库
+rows = db.query('select * from active_users')  # 执行原生 SQL
+# 遍历结果
+for r in rows:
+    print(r.name, r.user_email)
+
+# 友好的 print 格式
+print(rows.dataset)
+# username|active|name      |user_email       |timezone
+# --------|------|----------|-----------------|--------------------------
+# model-t |True  |Henry Ford|model-t@gmail.com|2016-02-06 22:28:23.894202
+
+# 支持将结果导出成不同格式
+print(rows.export('json'))  # json
+print(rows.export('csv'))  # csv
+print(rows.export('yaml')) # yaml
+rows.export('df')  # pandas 的 df 对象
+with open('report.xls', 'wb') as f:
+    f.write(rows.export('xls'))  # xls
+    
+
+
+
+
 Records: SQL for Humans™
 ========================
 
